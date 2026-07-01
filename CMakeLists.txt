@@ -23,6 +23,8 @@ add_executable(video_frame_capture
     src/handlers/UploadHandler.cc
     src/handlers/ExtractHandler.cc
     src/handlers/DeleteFrameHandler.cc
+    src/handlers/LabelHandler.cc
+    src/handlers/ImageUploadHandler.cc
 )
 
 target_link_libraries(video_frame_capture PRIVATE Drogon::Drogon)

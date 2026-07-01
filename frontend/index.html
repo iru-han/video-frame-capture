@@ -21,6 +21,15 @@
 
     <button id="convertBtn">변환</button>
 
+    <div class="divider">또는</div>
+
+    <div class="form-row">
+      <label for="imageFiles">사진 여러 장</label>
+      <input type="file" id="imageFiles" accept="image/*" multiple>
+    </div>
+
+    <button id="uploadImagesBtn">사진으로 라벨링 시작</button>
+
     <div id="statusText" class="status hidden"></div>
 
     <div id="warningBanner" class="warning hidden">
@@ -31,7 +40,40 @@
 
     <div id="loading" class="loading hidden">처리 중... (프레임 추출 중)</div>
 
+    <div class="gallery-controls">
+      <label><input type="checkbox" id="hideLabeledToggle"> 라벨링 완료된 사진 숨기기</label>
+    </div>
+
     <div id="gallery" class="gallery"></div>
+
+    <div id="labelEditor" class="label-editor hidden">
+      <div class="label-editor-header">
+        <h2>라벨링</h2>
+        <div class="nav-buttons">
+          <button id="prevFrameBtn">← 이전</button>
+          <button id="nextFrameBtn">다음 →</button>
+        </div>
+        <button id="closeLabelEditorBtn">닫기</button>
+      </div>
+
+      <div class="class-manager">
+        <input type="text" id="newClassName" placeholder="클래스 이름 (예: leg)">
+        <button id="addClassBtn">클래스 추가</button>
+        <div id="classList" class="class-list"></div>
+      </div>
+
+      <div id="labelCanvasWrap" class="label-canvas-wrap">
+        <img id="labelImage" alt="">
+        <canvas id="labelCanvas"></canvas>
+      </div>
+
+      <div id="boxList" class="box-list"></div>
+
+      <div class="label-editor-actions">
+        <button id="saveLabelsBtn">라벨 저장</button>
+      </div>
+      <div id="labelStatus" class="status hidden"></div>
+    </div>
   </div>
 
   <script src="/app.js"></script>

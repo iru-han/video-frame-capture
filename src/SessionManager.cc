@@ -1,5 +1,7 @@
 #include "SessionManager.h"
 
+#include <trantor/utils/Logger.h>
+
 #include <chrono>
 #include <cstdio>
 #include <iomanip>
@@ -15,7 +17,10 @@ std::filesystem::path g_dataRoot;
 const std::regex kSessionIdPattern(R"(^([0-9]+)_[0-9a-f]{8}$)");
 }  // namespace
 
-void init(const std::filesystem::path &dataRoot) { g_dataRoot = dataRoot; }
+void init(const std::filesystem::path &dataRoot) {
+    g_dataRoot = dataRoot;
+    LOG_INFO << "SessionManager initialized, dataRoot=" << g_dataRoot.string();
+}
 
 std::string newSessionId() {
     auto now = std::chrono::system_clock::now();
@@ -31,7 +36,9 @@ std::string newSessionId() {
     for (int i = 0; i < 8; ++i) {
         oss << hexDigits[dist(gen)];
     }
-    return oss.str();
+    std::string id = oss.str();
+    LOG_INFO << "New session created: " << id;
+    return id;
 }
 
 bool isValidSessionId(const std::string &id) {
@@ -41,6 +48,12 @@ bool isValidSessionId(const std::string &id) {
 std::filesystem::path sessionDirFor(const std::string &id) { return g_dataRoot / id; }
 
 std::filesystem::path framesDirFor(const std::string &id) { return sessionDirFor(id) / "frames"; }
+
+std::filesystem::path labelsDirFor(const std::string &id) { return sessionDirFor(id) / "labels"; }
+
+std::filesystem::path classesFileFor(const std::string &id) {
+    return sessionDirFor(id) / "classes.txt";
+}
 
 std::filesystem::path videoPathFor(const std::string &id) {
     auto dir = sessionDirFor(id);
@@ -58,11 +71,15 @@ void cleanupOldSessions(unsigned maxAgeHours) {
     std::error_code ec;
     if (!std::filesystem::exists(g_dataRoot, ec)) return;
 
+    LOG_INFO << "Cleaning up sessions older than " << maxAgeHours << "h in "
+             << g_dataRoot.string();
+
     auto now = std::chrono::duration_cast<std::chrono::seconds>(
                    std::chrono::system_clock::now().time_since_epoch())
                    .count();
     long maxAgeSeconds = static_cast<long>(maxAgeHours) * 3600;
 
+    int removedCount = 0;
     for (const auto &entry : std::filesystem::directory_iterator(g_dataRoot, ec)) {
         if (!entry.is_directory()) continue;
         std::string name = entry.path().filename().string();
@@ -73,8 +90,15 @@ void cleanupOldSessions(unsigned maxAgeHours) {
         if (now - ts > maxAgeSeconds) {
             std::error_code rmEc;
             std::filesystem::remove_all(entry.path(), rmEc);
+            if (rmEc) {
+                LOG_WARN << "Failed to remove session dir " << name << ": " << rmEc.message();
+            } else {
+                LOG_INFO << "Removed expired session: " << name;
+                ++removedCount;
+            }
         }
     }
+    LOG_INFO << "Session cleanup done, removed " << removedCount << " session(s)";
 }
 
 }  // namespace SessionManager

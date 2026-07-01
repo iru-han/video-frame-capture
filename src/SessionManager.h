@@ -15,6 +15,8 @@ bool isValidSessionId(const std::string &id);
 
 std::filesystem::path sessionDirFor(const std::string &id);
 std::filesystem::path framesDirFor(const std::string &id);
+std::filesystem::path labelsDirFor(const std::string &id);
+std::filesystem::path classesFileFor(const std::string &id);
 // Returns the video file path for a session, regardless of its extension
 // (looks for a file named "source.*" inside the session dir). Empty path if none found.
 std::filesystem::path videoPathFor(const std::string &id);

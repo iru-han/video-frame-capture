@@ -118,3 +118,172 @@ button:hover:not(:disabled) {
   font-size: 0.8rem;
   cursor: pointer;
 }
+
+.photo-card img {
+  cursor: pointer;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.divider::before {
+  margin-right: 0.75rem;
+}
+
+.divider::after {
+  margin-left: 0.75rem;
+}
+
+.gallery-controls {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.photo-card.labeled {
+  border-color: #16a34a;
+}
+
+.photo-card.labeled::after {
+  content: '완료';
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  background: rgba(22, 163, 74, 0.9);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.gallery.hide-labeled .photo-card.labeled {
+  display: none;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.box-item {
+  cursor: pointer;
+}
+
+.box-item.selected {
+  outline: 2px solid #111827;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.label-editor {
+  margin-top: 1.5rem;
+  border-top: 2px solid #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+.label-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label-editor-header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.class-manager {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.class-manager input {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.class-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.class-btn {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: white;
+}
+
+.class-btn.active {
+  border-color: #111827;
+}
+
+.label-canvas-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.label-canvas-wrap img {
+  max-width: 100%;
+  display: block;
+}
+
+.label-canvas-wrap canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: crosshair;
+}
+
+.box-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.box-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.box-item .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.box-item button {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.label-editor-actions {
+  margin-top: 1rem;
+}

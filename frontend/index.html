@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>영상 프레임 캡처</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>영상 → 초 단위 사진 캡처</h1>
+
+    <div class="form-row">
+      <label for="videoFile">영상 파일</label>
+      <input type="file" id="videoFile" accept="video/*">
+    </div>
+
+    <div class="form-row">
+      <label for="interval">캡처 간격 (초)</label>
+      <input type="number" id="interval" value="3" min="0.1" step="0.1">
+    </div>
+
+    <button id="convertBtn">변환</button>
+
+    <div id="statusText" class="status hidden"></div>
+
+    <div id="warningBanner" class="warning hidden">
+      <p id="warningText"></p>
+      <button id="increaseIntervalBtn">간격 늘리기</button>
+      <button id="proceedBtn">진행</button>
+    </div>
+
+    <div id="loading" class="loading hidden">처리 중... (프레임 추출 중)</div>
+
+    <div id="gallery" class="gallery"></div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
